@@ -22,16 +22,16 @@ void Solve() {
     vector<int> A(n);
     for (int i = 0; i < n; i++) cin >> A[i];
 
-    vector<int> prefix(n), suffix(n);
+    vector<int> x(n), y(n);
 
-    prefix[0] = A[0];
+    x[0] = A[0];
     for (int i = 1; i < n; i++)
-        prefix[i] = gcd(prefix[i-1], A[i]);
+        x[i] = gcd(x[i-1], A[i]);
 
 
-    suffix[n-1] = A[n-1];
+    y[n-1] = A[n-1];
     for (int i = n-2; i >= 0; i--)
-        suffix[i] = gcd(suffix[i+1], A[i]);
+        y[i] = gcd(y[i+1], A[i]);
 
     int ans = 1;
 
@@ -39,11 +39,11 @@ void Solve() {
         int g;
 
         if (i == 0)
-            g = suffix[1];
+            g = y[1];
         else if (i == n-1)
-            g = prefix[n-2];
+            g = x[n-2];
         else
-            g = gcd(prefix[i-1], suffix[i+1]);
+            g = gcd(x[i-1], y[i+1]);
 
         ans = max(ans, g);
     }
